@@ -2,26 +2,96 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+
+
+.search-container input[type=text] {
+  float: center;
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: solid;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-content: center;
+  align-items: center;
+  position: sticky;
+  top:0;
+  z-index:  1;
 }
 
-.App-link {
-  color: #61dafb;
+
+div.a{
+  text-align: center;
 }
+
+.bg{
+  height: 50%;
+  width: 50%;
+  z-index: -200;
+}
+
+.Navbutton{
+  background: white;
+  width: 33%;
+  padding: 4px 0;
+  left: 50;
+  top: 50%;
+  border-radius: 3px;
+  color: black;
+  font-size: 30px;
+}
+
+legend {
+  display: block;
+  padding-left: 2px;
+  padding-right: 2px;
+  border: none;
+}
+
+
+.buttons{
+
+align-items: center;
+align-content: center;
+align-items: center;
+position: sticky;
+top:0;
+z-index:  1;
+}
+.buttons{
+
+align-items: center;
+align-content: center;
+}
+
+.NavBar{
+  background-color: white;
+
+}
+
+
+
+.animate-pop-in {
+  animation: pop-in .6s cubic-bezier(0, .9, .3, 1.2) forwards;
+  opacity: 0;
+}
+
+
+
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-4rem) scale(.8);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+
 
 @keyframes App-logo-spin {
   from {
