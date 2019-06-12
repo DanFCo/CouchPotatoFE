@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './App.css';
 import NavBar from "./NavBar"
 import ShowMain from "./ShowMain"
@@ -7,34 +6,33 @@ import Search from "./Search"
 import UserHomePage from "./UserHomePage"
 import { Route, Switch } from 'react-router-dom'
 import Splash from "./Splash"
+import { connect } from "react-redux"
+
 
 class App extends React.Component {
 
 
   state={
     username: "",
-    password:"",
-    current_user: null
+    password:""
+
   }
 
 
 
 
-  setCurrentUser = (user) =>{
-    localStorage.setItem("user_id",user.user.id)
-    localStorage.setItem("user_name",user.user.username)
-    localStorage.setItem("avatar",user.user.avatar)
-    this.setState({
-      current_user: user
-    })
+
+
+
+  setCurrentUser = (data) =>{
+    localStorage.setItem("user_id",data.user.id)
+    localStorage.setItem("user_name",data.user.username)
+    localStorage.setItem("avatar",data.user.avatar)
+    this.props.setUser(data)
   }
 
 
-  deleteCurrentUser = () =>{
-    this.setState({
-      current_user: null
-    })
-  }
+
 
 
 
@@ -69,17 +67,19 @@ class App extends React.Component {
 
 
   render(){
+    
     return (
       <div className="a">
         {
         localStorage.user_id
           ?
           <React.Fragment>
-          <NavBar deleteCurrentUser={this.deleteCurrentUser} />
+          <NavBar history={this.props.history} />
           <Switch>
             <Route exact path="/show/:id" component={ShowMain} />
-            <Route exact path="/search" component={Search} />
+            <Route exact path="/search" render={(routerProps) => <Search {...routerProps} />}/>
           <Route exact path="/user" component={UserHomePage} />
+          <Route exact path="/" component={Splash} />
          </Switch>
          </React.Fragment>
           :
@@ -96,6 +96,19 @@ class App extends React.Component {
   </div>
 )
 }
+}//--------------------------------------------------end of class
+
+function mapStateToProps(state){
+
+  return{}
 }
 
-export default App;
+function mapDispatchToProps(dispatch){
+  return{
+    setUser: (data)=>{
+      dispatch({type:"SET_CURRENT_USER", payload: data.user})
+    }
+}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -16,9 +16,6 @@ setCurrentUser = (user) =>{
   localStorage.setItem("user_id",user.user.id)
   localStorage.setItem("user_name",user.user.username)
   localStorage.setItem("avatar",user.user.avatar)
-  this.setState({
-    current_user: user
-  })
 }
 
 submitHandler = (event) => {
