@@ -2,6 +2,7 @@ import React from 'react';
 import ShowCard from "./components/ShowCard"
 import { connect } from "react-redux"
 
+
 class Search extends React.Component {
 
 
@@ -42,6 +43,7 @@ class Search extends React.Component {
 }//-------------------end of class-----------------
 
 function mapStateToProps(state){
+  console.log(state)
   return{shows: state.shows}
 }
 

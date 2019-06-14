@@ -61,21 +61,29 @@ changeHandler=(event)=>{
 
 
 
-
   render() {
     return (
       <div>
 <h1>{this.props.show.name}</h1>
 <br/>
-<img src={this.props.show.poster} alt={this.props.show.name} height="500" width="450"/>
+<img src={this.props.show.poster} alt={this.props.show.name} height="550" width="450"/>
 <br/>
 <h3>Genre:</h3>{this.props.show.genre}
 <br/>
 <h3>Runtime:</h3> {this.props.show.runtime}
 <br/>
+  <h3>Network:</h3> {this.props.show.network}
+  <br/>
+    <h3>Web Channel:</h3> {this.props.show.webchannel}
+    <br/>
 <h3>Summary:</h3>{this.props.show.summary}
 <br/>
 <a href={this.props.show.website} target="blank">OFFICIAL WEBSITE</a>
+<br/>
+
+<button>Potato</button>
+
+
 <br/>
 
 
@@ -99,6 +107,7 @@ return  <Comment key={comment.id} data={comment} />
 }//---------------------end of class-------------
 
 function mapStateToProps(state){
+
 
 return{show: state.selectShow, comments: state.comments,
    currentUser: state.current_user,

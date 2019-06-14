@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from "react-redux"
 
 
 class SignUp extends React.Component {
@@ -16,6 +17,7 @@ setCurrentUser = (user) =>{
   localStorage.setItem("user_id",user.user.id)
   localStorage.setItem("user_name",user.user.username)
   localStorage.setItem("avatar",user.user.avatar)
+  this.props.setUser(user)
 }
 
 submitHandler = (event) => {
@@ -83,4 +85,13 @@ changeHandler = (event) => {
 
 }// <-------------------------------------end of class
 
-export default SignUp
+export default connect(null, mapDispatchToProps)(SignUp)
+
+
+function mapDispatchToProps(dispatch){
+  return{
+    setUser: (data)=>{
+      dispatch({type:"SET_CURRENT_USER", payload: data.user})
+    }
+}
+}
