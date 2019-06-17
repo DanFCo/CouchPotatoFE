@@ -7,9 +7,8 @@ class WatchList extends React.Component {
   render() {
     return (
       <div>
-I AM IN YOUR WATCH LIST...WATCHING
  {this.props.bookmarks.map(bookmark =>{
-   return <ShowCard key={bookmark.id} data={bookmark} />
+   return <ShowCard key={bookmark.id} data={bookmark} history={this.props.history} />
  })}
 
       </div>
@@ -21,7 +20,7 @@ I AM IN YOUR WATCH LIST...WATCHING
 
 
 function mapStateToProps(state){
-  
+
   return{bookmarks: state.bookmarks}
 }
 

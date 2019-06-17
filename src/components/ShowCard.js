@@ -50,7 +50,6 @@ this.props.history.push(`/show/${show.id}`)
 
 
     render(){
-
       return (
         <div>
           {this.state.clicked
@@ -78,8 +77,11 @@ this.props.history.push(`/show/${show.id}`)
                   <h5>{this.props.data.summary}</h5>
                 </div>
 
-
-                <button className="userButton" onClick={() => this.bookmarkButton(this.props.data)}>Favorite<span role="img">📺 </span></button>
+{!this.props.bookmarks.find(bk=>bk.name === this.props.data.name) ?
+  <button className="userButton" onClick={() => this.bookmarkButton(this.props.data)}>Favorite<span role="img">📺 </span></button>
+:
+<button>REMOVE FROM WATCHLIST</button>
+}
                 <button className="userButton" onClick={() => this.pageButton(this.props.data)}>TV SHOW PAGE</button>
 
               </div>
@@ -93,7 +95,7 @@ this.props.history.push(`/show/${show.id}`)
 
 
 function mapStateToProps(state){
-  return{current_user: state.current_user}
+  return{current_user: state.current_user, bookmarks: state.bookmarks}
 }
 
 function mapDispatchToProps(dispatch){

@@ -43,7 +43,7 @@ class Search extends React.Component {
 }//-------------------end of class-----------------
 
 function mapStateToProps(state){
-  console.log(state)
+  
   return{shows: state.shows}
 }
 

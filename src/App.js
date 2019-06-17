@@ -59,6 +59,7 @@ class App extends React.Component {
       if(data.errors){
         alert(data.errors)
       }else{
+        this.props.setPotatoes(data.user.potatoes)
         this.setCurrentUser(data)
         this.props.history.push('/user')
       }
@@ -67,8 +68,9 @@ class App extends React.Component {
 
 
   render(){
-    
+
     return (
+
       <div className="a">
         {
         localStorage.user_id
@@ -78,7 +80,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/show/:id" component={ShowMain} />
             <Route exact path="/search" render={(routerProps) => <Search {...routerProps} />}/>
-          <Route exact path="/user" component={UserHomePage} />
+          <Route exact path="/user" component={(routerProps) => <UserHomePage {...routerProps} />}/>
           <Route exact path="/" component={Splash} />
          </Switch>
          </React.Fragment>
@@ -107,6 +109,9 @@ function mapDispatchToProps(dispatch){
   return{
     setUser: (data)=>{
       dispatch({type:"SET_CURRENT_USER", payload: data.user})
+    },
+    setPotatoes:(potatoes)=>{
+      dispatch({type:"ADD_POTATOES", payload: potatoes})
     }
 }
 }

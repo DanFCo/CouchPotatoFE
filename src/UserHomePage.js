@@ -5,25 +5,25 @@ import { connect } from "react-redux"
 
 class UserHomePage extends React.Component {
 
-componentDidMount(){
-  this.currentUserBookmark()
-}
+  componentDidMount(){
+    this.currentUserBookmark()
+  }
 
   currentUserBookmark = () => {
-      let user = this.props.current_user
+    let user = this.props.current_user
 
-      fetch("http://localhost:3000/api/v1/bookmarks/get",{
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accepts": "application/json"
-        },
-        body: JSON.stringify(user)
-      }).then (response =>response.json())
-      .then(bookmarks =>{
-        this.props.addBookmarks(bookmarks)
-      })
-    }
+    fetch("http://localhost:3000/api/v1/bookmarks/get",{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accepts": "application/json"
+      },
+      body: JSON.stringify(user)
+    }).then (response =>response.json())
+    .then(bookmarks =>{
+      this.props.addBookmarks(bookmarks)
+    })
+  }
 
 
 
@@ -31,11 +31,11 @@ componentDidMount(){
   render() {
     return (
       <div>
-      <h1>{localStorage.user_name} </h1>
-      <img src={localStorage.avatar} alt=""/>
+        <h1>{localStorage.user_name} </h1>
+        <img src={localStorage.avatar} alt=""/>
 
- <WatchList />
- <HotPotatoes />
+        <WatchList history={this.props.history} />
+        <HotPotatoes history={this.props.history} />
       </div>
     );
   }
@@ -44,7 +44,8 @@ componentDidMount(){
 
 function mapStateToProps(state){
 
-return{current_user: state.current_user}
+
+  return{current_user: state.current_user}
 }
 
 function mapDispatchToProps(dispatch){
@@ -52,7 +53,6 @@ function mapDispatchToProps(dispatch){
     addBookmarks:(bookmarks) =>{
       dispatch({type:"ADD_BOOKMARKS", payload: bookmarks})
     }
-
   }
 }
 

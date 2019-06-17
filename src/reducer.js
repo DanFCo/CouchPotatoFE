@@ -30,6 +30,8 @@ function reducer(state=defaultState, action){
       return{...state,comments:[...state.comments,action.payload]}
       case "ADD_COMMENTS":
       return{...state,comments:action.payload}
+      case "ADD_POTATOES":
+      return{...state, potatoes:action.payload}
     default:
 return state
   }
