@@ -110,6 +110,31 @@ class ShowMain extends React.Component {
       }
 
 
+      removeBookmark = () =>{
+      let currentShow = this.props.bookmarks.find(bk=>bk.name === this.props.show.name)
+      this.props.removeSelectBookmark(currentShow)
+
+        fetch(`http://localhost:3000/api/v1/bookmarks/${this.props.id}`,{
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                "Accepts": "application/json"
+              },
+              body: JSON.stringify({
+                user: this.props.currentUser.id,
+                show: currentShow.id
+              })
+            }).then (response =>response.json())
+            .then(data =>{
+          alert(data.message)
+            })
+
+      }
+
+
+
+
+
 
       render() {
         return (
@@ -128,7 +153,7 @@ class ShowMain extends React.Component {
                     <br/>
                     <h3>Summary:</h3>{this.props.show.summary}
                       <br/>
-                      
+
                       {this.props.show.website === "not available" ?
                         null
                         :
@@ -162,7 +187,7 @@ class ShowMain extends React.Component {
 
   :
 
-  <button>REMOVE FROM WATCHLIST</button>
+  <button onClick={this.removeBookmark}>REMOVE FROM WATCHLIST</button>
   }
   <br/>
 
@@ -204,6 +229,9 @@ class ShowMain extends React.Component {
                     },
                     addBookmark: (bookmark)=>{
                       dispatch({type:"ADD_BOOKMARK",payload: bookmark})
+                    },
+                    removeSelectBookmark: (show) =>{
+                      dispatch({type: "REMOVE_BOOKMARK", payload: show})
                     }
                   }
                 }

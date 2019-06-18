@@ -7,7 +7,8 @@ const defaultState={
   potatoes:[],
   current_user: null,
   comments:[],
-  selectShow:{}
+  selectShow:{},
+  hottestPotato: {}
 }
 
 
@@ -31,10 +32,13 @@ function reducer(state=defaultState, action){
       case "ADD_COMMENTS":
       return{...state,comments:action.payload}
       case "ADD_POTATOES":
-      // debugger
       return{...state, potatoes:action.payload}
       case "REMOVE_POTATO":
       return{...state,potatoes: filterPotato(action.payload, state.potatoes)}
+      case "REMOVE_BOOKMARK":
+      return{...state,bookmarks: filterBookmark(action.payload, state.bookmarks)}
+      case "ADD_HOT_POTATO":
+      return{...state,hottestPotato:action.payload}
     default:
 return state
   }
@@ -47,6 +51,11 @@ let newArr = pots.filter(pot =>{ return pot.id !== potato.id})
 return newArr
 }
 
+const filterBookmark = (bkShow,state) =>{
+  let shows = [...state]
+  let newArr = shows.filter(show =>{ return show.id !== bkShow.id})
+  return newArr
+}
 
 
 

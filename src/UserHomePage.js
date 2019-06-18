@@ -2,11 +2,13 @@ import React from 'react';
 import HotPotatoes from "./containers/HotPotatoes"
 import WatchList from "./containers/WatchList"
 import { connect } from "react-redux"
+import PotatoCard from "./components/PotatoCard"
 
 class UserHomePage extends React.Component {
 
   componentDidMount(){
     this.currentUserBookmark()
+    this.getHottestPotato()
   }
 
   currentUserBookmark = () => {
@@ -25,15 +27,28 @@ class UserHomePage extends React.Component {
     })
   }
 
-
+getHottestPotato = () =>{
+  fetch("http://localhost:3000/api/v1/potatos")
+    .then(response => response.json())
+    .then(potato =>{
+      this.props.setHotPotato(potato)
+    })
+}
 
 
   render() {
+    console.log(this.props)
     return (
       <div>
         <h1>{localStorage.user_name} </h1>
         <img src={localStorage.avatar} alt=""/>
+        <h4>HOTTEST POTATO</h4>
+{this.props.hottestPotato ?
 
+<PotatoCard history={this.props.history} {...this.props.hottestPotato} hottest={true}/>
+:
+"NO CURRENT POTATOES"
+}
         <WatchList history={this.props.history} />
         <HotPotatoes history={this.props.history} />
       </div>
@@ -43,15 +58,17 @@ class UserHomePage extends React.Component {
 }//------------------end of class---------------------------------
 
 function mapStateToProps(state){
-
-
-  return{current_user: state.current_user}
+  return{current_user: state.current_user,
+  hottestPotato: state.hottestPotato}
 }
 
 function mapDispatchToProps(dispatch){
   return{
     addBookmarks:(bookmarks) =>{
       dispatch({type:"ADD_BOOKMARKS", payload: bookmarks})
+    },
+    setHotPotato:(potato) =>{
+      dispatch({type: "ADD_HOT_POTATO", payload: potato})
     }
   }
 }

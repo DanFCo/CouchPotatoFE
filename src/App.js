@@ -59,7 +59,6 @@ class App extends React.Component {
       if(data.errors){
         alert(data.errors)
       }else{
-        // this.props.setPotatoes(data.user.potatoes)
         this.getPotatoes(data)
         this.setCurrentUser(data)
         this.props.history.push('/user')
@@ -77,7 +76,6 @@ class App extends React.Component {
       body: JSON.stringify(user)
     }).then(response => response.json())
     .then(potatos =>{
-      debugger
       this.props.setPotatoes(potatos)
     })
   }
