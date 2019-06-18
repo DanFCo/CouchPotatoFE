@@ -69,7 +69,7 @@ this.props.removeSelectBookmark(show)
 
 
     render(){
-      console.log(this.props)
+  
       return (
         <div>
           {this.state.clicked

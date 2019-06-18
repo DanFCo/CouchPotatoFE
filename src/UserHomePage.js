@@ -37,7 +37,7 @@ getHottestPotato = () =>{
 
 
   render() {
-    console.log(this.props)
+    
     return (
       <div>
         <h1>{localStorage.user_name} </h1>

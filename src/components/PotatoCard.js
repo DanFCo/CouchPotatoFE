@@ -75,11 +75,11 @@ class PotatoCard extends React.Component {
 
 
   render() {
-    console.log(this.props)
+    
     return (
       <div>
         <img onClick={()=>this.clickHandler(this.props.show)} src={Potato} alt=""/>
-      
+
         {this.props.hottest ?
           null
         :

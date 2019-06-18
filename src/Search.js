@@ -5,7 +5,9 @@ import { connect } from "react-redux"
 
 class Search extends React.Component {
 
-
+state={
+  term:""
+}
 
 
 
@@ -17,8 +19,29 @@ class Search extends React.Component {
       })
   }
 
+changeHandler = (event) =>{
+  this.setState({
+    [event.target.name]: event.target.value
+  })
+}
 
 
+clickHandler = () =>{
+  fetch("http://localhost:3000/api/v1/shows/search",{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accepts": "application/json"
+    },
+    body: JSON.stringify({
+      search: this.state.term
+    })
+  }).then (response =>response.json())
+  .then(shows =>{
+    // console.log(shows)
+    this.props.addShows(shows)
+  })
+}
 
 
   render() {
@@ -26,8 +49,8 @@ class Search extends React.Component {
     return (
       <div>
       <div className="search-container">
-    <input type="text" name="search"/>
-    <button>SEARCH🔎</button>
+    <input onChange={this.changeHandler} type="text" name="term"/>
+    <button onClick={this.clickHandler}>SEARCH🔎</button>
 </div>
 <div className="grid-container">
 
@@ -43,7 +66,7 @@ class Search extends React.Component {
 }//-------------------end of class-----------------
 
 function mapStateToProps(state){
-  
+console.log(state)
   return{shows: state.shows}
 }
 
