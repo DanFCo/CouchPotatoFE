@@ -31,12 +31,21 @@ function reducer(state=defaultState, action){
       case "ADD_COMMENTS":
       return{...state,comments:action.payload}
       case "ADD_POTATOES":
+      // debugger
       return{...state, potatoes:action.payload}
+      case "REMOVE_POTATO":
+      return{...state,potatoes: filterPotato(action.payload, state.potatoes)}
     default:
 return state
   }
 }
 
+
+const filterPotato = (potato,state) =>{
+let pots = [...state]
+let newArr = pots.filter(pot =>{ return pot.id !== potato.id})
+return newArr
+}
 
 
 

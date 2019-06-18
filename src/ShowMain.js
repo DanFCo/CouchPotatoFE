@@ -128,7 +128,12 @@ class ShowMain extends React.Component {
                     <br/>
                     <h3>Summary:</h3>{this.props.show.summary}
                       <br/>
-                      <a href={this.props.show.website} target="blank">OFFICIAL WEBSITE</a>
+                      
+                      {this.props.show.website === "not available" ?
+                        null
+                        :
+                      <a href={this.props.show.website} target="blank"><button>WEBSITE</button></a>
+                      }
                       <br/>
 
 

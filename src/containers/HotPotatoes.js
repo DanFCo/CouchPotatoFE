@@ -8,7 +8,7 @@ class HotPotatoes extends React.Component {
     return (
       <div>
 {this.props.potatoes.map(potato =>{
-
+  if(potato===null)debugger
 return  <PotatoCard key={potato.id} history={this.props.history} {...potato} />
 
 })}
@@ -19,8 +19,8 @@ return  <PotatoCard key={potato.id} history={this.props.history} {...potato} />
 }//----------------END OF CLASS------------
 
 function mapStateToProps(state){
-
-return{potatoes: state.current_user.potatoes}
+// return{potatoes: state.current_user.potatoes}
+return{potatoes: state.potatoes}
 }
 
 
