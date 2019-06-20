@@ -1,10 +1,10 @@
 import React from 'react'
 import ShowCard from "./components/ShowCard"
 import { connect } from "react-redux"
-import { Button, Responsive, Card, Icon } from 'semantic-ui-react'
+import { Button, Responsive, Card, Icon, Search } from 'semantic-ui-react'
 
 
-class Search extends React.Component{
+class SearchPage extends React.Component{
 
   state={
     term:""
@@ -69,10 +69,14 @@ class Search extends React.Component{
       <div>
         <div className="sticky">
 
-          <Button onClick={this.fetchShows}><Icon name="archive"/>All Shows</Button>
-          <input onChange={this.changeHandler} name="term"/>
-          <Button onClick={this.clickHandler}>SEARCH</Button>
 
+          <br/>
+          <input onChange={this.changeHandler} name="term"/>
+            <Button.Group>
+            <Button onClick={this.clickHandler} color="red">Search</Button>
+                <Button onClick={this.fetchShows}>Archive</Button>
+
+              </Button.Group>
         </div>
 
         <div className="card-container">
@@ -109,4 +113,4 @@ function mapDispatchToProps(dispatch){
 
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(Search)
+export default connect(mapStateToProps,mapDispatchToProps)(SearchPage)

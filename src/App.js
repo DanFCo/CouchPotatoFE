@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import NavBar from "./NavBar"
 import ShowMain from "./ShowMain"
-import Search from "./Search"
+import SearchPage from "./SearchPage"
 import UserHomePage from "./UserHomePage"
 import { Route, Switch } from 'react-router-dom'
 import Splash from "./Splash"
@@ -105,7 +105,7 @@ componentDidMount(){
           <NavBar history={this.props.history} />
           <Switch>
             <Route exact path="/show/:id" component={ShowMain} />
-            <Route exact path="/search" render={(routerProps) => <Search {...routerProps} />}/>
+            <Route exact path="/search" render={(routerProps) => <SearchPage {...routerProps} />}/>
           <Route exact path="/user" component={(routerProps) => <UserHomePage {...routerProps} />}/>
           <Route exact path="/" component={Splash} />
          </Switch>

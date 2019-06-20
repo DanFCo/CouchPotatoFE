@@ -61,9 +61,9 @@ class UserHomePage extends React.Component {
             />
         <Fragment>
           {this.props.hottestPotato ?
-<Card>
-            <PotatoCard history={this.props.history} {...this.props.hottestPotato} hottest={true}/>
-          </Card>
+            <Card className="eat">
+              <PotatoCard history={this.props.history} {...this.props.hottestPotato} hottest={true}/>
+            </Card>
             :
             "NO CURRENT POTATOES"
           }

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import CommentCard from "./components/CommentCard"
 import { connect } from "react-redux"
-import { Button, Icon, Comment, Header, Item, Responsive } from "semantic-ui-react"
+import { Button, Icon, Comment, Header, Item, Responsive, Grid } from "semantic-ui-react"
 
 class ShowMain extends React.Component {
 
@@ -139,75 +139,61 @@ class ShowMain extends React.Component {
         render() {
           return (
             <Responsive>
-            <div className="animate-pop-in">
-              <div className="show">
-                <Item.Group>
-                   <Item>
-                     <Item.Image size='medium' src={this.props.show.poster} />
+              <div className="animate-pop-in">
+                <div className="show">
+                  <Grid>
+                    <Grid.Column width={4}>
+                      <Item>
+                        <Item.Image size='medium' src={this.props.show.poster} />
+                      </Item>
+                    </Grid.Column>
+                    <Grid.Column width={7}>
+                      <Item>
+                        <Item.Content>
+                          <Header as='h1' dividing>
+                            {this.props.show.name}
+                          </Header>
 
-                     <Item.Content>
-                       <Header as='h1' dividing>
-                         {this.props.show.name}
-                       </Header>
+                          <Item.Meta>{this.props.show.genre}</Item.Meta>
 
-                       <Item.Meta>{this.props.show.genre}</Item.Meta>
-
-                       <Item.Description>
-                         {this.props.show.summary}
-                       </Item.Description>
-                       <Header as='h4' dividing>
-                        Network:
-                       </Header>
-                       <Item.Description>
-                         {this.props.show.network}
-                       </Item.Description>
-                       <Header as='h4' dividing>
-                        Web Channel:
-                       </Header>
-                       <Item.Description>
-                         {this.props.show.webchannel}
-                       </Item.Description>
-                       <Header as='h4' dividing>
-                      Runtime:
-                       </Header>
-                       <Item.Extra>{this.props.show.runtime}</Item.Extra>
-                     </Item.Content>
-                   </Item>
-                 </Item.Group>
-
-
-                      <div className="www">
-                        {this.props.show.website === "not available" ?
-                          null
-                          :
-                          <a href={this.props.show.website} target="blank">
-                            <Button color='blue' icon>
-                              <Icon name='world' /> Website
-                              </Button>
-                            </a>
-                          }
+                          <Item.Description>
+                            {this.props.show.summary}
+                          </Item.Description>
+                          <Header as='h4' dividing>
+                            Network:
+                          </Header>
+                          <Item.Description>
+                            {this.props.show.network}
+                          </Item.Description>
+                          <Header as='h4' dividing>
+                            Web Channel:
+                          </Header>
+                          <Item.Description>
+                            {this.props.show.webchannel}
+                          </Item.Description>
+                          <Header as='h4' dividing>
+                            Runtime:
+                          </Header>
+                          <Item.Extra>{this.props.show.runtime}</Item.Extra>
+                        </Item.Content>
+                      </Item>
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                      <Fragment>
 
 
-</div>
-<div className="potato">
-                          {!this.props.potatoes.find(potato =>potato.show_id === this.props.show.id) ?
-                            <Button color='yellow' onClick={this.clickHandler}>Create Hot Potato</Button>
-                            :
+                        <div className="www">
+                          {this.props.show.website === "not available" ?
                             null
-                          }
-                          {this.state.clicked ?
-                            <form onSubmit={this.potatoSubmit}>
-                              <br/>
-                              <input onChange={this.changeHandler} name="receivingUser" type="text" placeholder="User Name of Person" required="required"/>
-                              <br/>
-                              <textarea onChange={this.changeHandler} name="note" form="usrform" placeholder="Write Them a Note!" required="required"/>
-                              <br/>
-                              <input type="submit"/>
-                              <br/>
-                            </form>
                             :
-                            null}
-                            </div>
+                            <a href={this.props.show.website} target="blank">
+                              <Button color='blue' icon>
+                                <Icon name='world' /> Website
+                                </Button>
+                              </a>
+                            }
+                          </div>
+
 
                           <div className="watchlist">
                             {!this.props.bookmarks.find(bk=>bk.name === this.props.show.name) ?
@@ -218,66 +204,99 @@ class ShowMain extends React.Component {
 
                               <Button negative onClick={this.removeBookmark}>REMOVE FROM WATCHLIST</Button>
                             }
-                            </div>
-</div>
-
-
-
-
-                            <div className="center">
-                              <Header as='h3' dividing>
-                                Comments:
-                              </Header>
-                              <Comment.Group>
-
-                                {this.props.comments.map(comment =>{
-
-                                  return <CommentCard key={comment.id} data={comment} />
-                                })}
-                              </Comment.Group>
-                            </div>
-
-                            <form onSubmit={this.submitHandler}>
-                              <textarea onChange={this.changeHandler} rows="4" cols="50" name="comment" form="usrform" placeholder="Type Comment Here!"/>
-                              <br/>
-                              <input type="submit"/>
-                            </form>
                           </div>
-                          </Responsive>
-                        );
-                      }
-
-                    }//---------------------end of class-------------
-
-                    function mapStateToProps(state){
 
 
-                      return{show: state.selectShow, comments: state.comments,
-                        currentUser: state.current_user, potatoes: state.potatoes,
-                        bookmarks: state.bookmarks
-                      }
-                    }
+                          <div className="potato">
+                            {!this.props.potatoes.find(potato =>potato.show_id === this.props.show.id) ?
+                              <Button color='yellow' onClick={this.clickHandler}>Create Hot Potato</Button>
+                              :
+                              null
+                            }
+                            {this.state.clicked ?
+                              <form onSubmit={this.potatoSubmit}>
+                                <br/>
+                                <input onChange={this.changeHandler} name="receivingUser" type="text" placeholder="User Name of Person" required="required"/>
+                                <br/>
+                                <textarea onChange={this.changeHandler} name="note" form="usrform" placeholder="Write Them a Note!" required="required"/>
+                                <br/>
+                                <input type="submit"/>
+                                <br/>
+                              </form>
+                              :
+                              null}
+                            </div>
 
-                    function mapDispatchToProps(dispatch){
-                      return{
-                        grabComment:(comment)=>{
-                          dispatch({type:"ADD_COMMENT", payload: comment})
-                        },
-                        addComments:(comments)=>{
-                          dispatch({type:"ADD_COMMENTS",payload:comments})
-                        },
-                        addBookmark: (bookmark)=>{
-                          dispatch({type:"ADD_BOOKMARK",payload: bookmark})
-                        },
-                        removeSelectBookmark: (show) =>{
-                          dispatch({type: "REMOVE_BOOKMARK", payload: show})
-                        }
-                      }
-                    }
+
+
+                      </Fragment>
+                    </Grid.Column>
+                  </Grid>
+                </div>
 
 
 
 
 
 
-                    export default connect(mapStateToProps,mapDispatchToProps)(ShowMain)
+
+
+
+
+                    <div className="center">
+                      <Header as='h3' dividing>
+                        Comments:
+                      </Header>
+                      <Comment.Group>
+
+                        {this.props.comments.map(comment =>{
+
+                          return <CommentCard key={comment.id} data={comment} />
+                        })}
+                      </Comment.Group>
+                    </div>
+
+                    <form onSubmit={this.submitHandler}>
+                      <textarea onChange={this.changeHandler} rows="4" cols="50" name="comment" form="usrform" placeholder="Type Comment Here!"/>
+                      <br/>
+                      <input type="submit"/>
+                    </form>
+                  </div>
+                </Responsive>
+              );
+            }
+
+          }//---------------------end of class-------------
+
+          function mapStateToProps(state){
+
+
+            return{show: state.selectShow, comments: state.comments,
+              currentUser: state.current_user, potatoes: state.potatoes,
+              bookmarks: state.bookmarks
+            }
+          }
+
+          function mapDispatchToProps(dispatch){
+            return{
+              grabComment:(comment)=>{
+                dispatch({type:"ADD_COMMENT", payload: comment})
+              },
+              addComments:(comments)=>{
+                dispatch({type:"ADD_COMMENTS",payload:comments})
+              },
+              addBookmark: (bookmark)=>{
+                dispatch({type:"ADD_BOOKMARK",payload: bookmark})
+              },
+              removeSelectBookmark: (show) =>{
+                dispatch({type: "REMOVE_BOOKMARK", payload: show})
+              }
+            }
+          }
+
+
+
+
+
+
+          export default connect(mapStateToProps,mapDispatchToProps)(ShowMain)

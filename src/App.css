@@ -25,7 +25,12 @@
 }
 
 
-
+.ui.cards {
+  display: flex;
+  margin: -.875em -.5em;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
 .center-image {
   display: block;
@@ -39,9 +44,10 @@
 }
 
 .avatar-button{
-  display: inline-grid;
-  top: 20px;
-  ;
+display: inline-grid;
+position: relative;
+bottom: 30px;
+
 }
  div.a{
   text-align: center;
