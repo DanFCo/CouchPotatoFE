@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import HotPotatoes from "./containers/HotPotatoes"
 import WatchList from "./containers/WatchList"
 import { connect } from "react-redux"
 import PotatoCard from "./components/PotatoCard"
+import { Card, Icon } from "semantic-ui-react"
 
 class UserHomePage extends React.Component {
 
@@ -27,31 +28,53 @@ class UserHomePage extends React.Component {
     })
   }
 
-getHottestPotato = () =>{
-  fetch("http://localhost:3000/api/v1/potatos")
+  getHottestPotato = () =>{
+    fetch("http://localhost:3000/api/v1/potatos")
     .then(response => response.json())
     .then(potato =>{
       this.props.setHotPotato(potato)
     })
-}
+  }
+
+
+  extra = () =>{
+    const number = this.props.bookmarks.length
+    return (<a>
+      <Icon name='user' />
+      {number} Shows In Watch List
+    </a>)
+  }
 
 
   render() {
-    
-    return (
-      <div>
-        <h1>{localStorage.user_name} </h1>
-        <img src={localStorage.avatar} alt=""/>
-        <h4>HOTTEST POTATO</h4>
-{this.props.hottestPotato ?
 
-<PotatoCard history={this.props.history} {...this.props.hottestPotato} hottest={true}/>
-:
-"NO CURRENT POTATOES"
-}
-        <WatchList history={this.props.history} />
-        <HotPotatoes history={this.props.history} />
-      </div>
+    return (
+      <Fragment>
+        <div className="animate-pop-in header">
+<Card.Group centered itemsPerRow={4}>
+          <Card
+            raised
+            image={localStorage.avatar}
+            header={localStorage.user_name}
+            meta={Date()}
+            extra={this.extra()}
+            />
+        <Fragment>
+          {this.props.hottestPotato ?
+<Card>
+            <PotatoCard history={this.props.history} {...this.props.hottestPotato} hottest={true}/>
+          </Card>
+            :
+            "NO CURRENT POTATOES"
+          }
+        </Fragment>
+          </Card.Group>
+        </div>
+        <div>
+          <HotPotatoes history={this.props.history} />
+          <WatchList history={this.props.history} />
+        </div>
+      </Fragment>
     );
   }
 
@@ -59,7 +82,9 @@ getHottestPotato = () =>{
 
 function mapStateToProps(state){
   return{current_user: state.current_user,
-  hottestPotato: state.hottestPotato}
+    hottestPotato: state.hottestPotato,
+    bookmarks: state.bookmarks
+  }
 }
 
 function mapDispatchToProps(dispatch){

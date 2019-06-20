@@ -1,6 +1,7 @@
 import React from 'react';
-import Potato from "../potato.jpg"
+import Potato from "../potato.png"
 import { connect } from "react-redux"
+import { Responsive, Card } from "semantic-ui-react"
 
 
 class PotatoCard extends React.Component {
@@ -75,13 +76,17 @@ class PotatoCard extends React.Component {
 
 
   render() {
-    
+
     return (
-      <div>
-        <img onClick={()=>this.clickHandler(this.props.show)} src={Potato} alt=""/>
+      <Responsive>
+      <div className="animate-pop-in hot-potato">
+        <Card.Group centered>
+<Card raised className="please-work">
+        <img onClick={()=>this.clickHandler(this.props.show)} src={Potato} height="200" width="150"  alt="" className="center-image"/>
 
         {this.props.hottest ?
-          null
+
+          <h3>Hottest Potato</h3>
         :
           <div>
             <h5>{this.props.note}</h5>
@@ -102,7 +107,10 @@ class PotatoCard extends React.Component {
             }
           </div>
           }
+        </Card>
+        </Card.Group>
         </div>
+      </Responsive>
       );
     }
 

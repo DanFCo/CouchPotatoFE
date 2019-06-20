@@ -5,19 +5,6 @@
 
 
 
-.search-container input[type=text] {
-  float: center;
-  padding: 6px;
-  margin-top: 8px;
-  font-size: 17px;
-  border: solid;
-  align-items: center;
-  align-content: center;
-  align-items: center;
-  position: sticky;
-  top:0;
-  z-index:  1;
-}
 
 
 
@@ -39,7 +26,24 @@
 
 
 
-div.a{
+
+.center-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.hot-potato{
+  text-align: center;
+}
+
+.avatar-button{
+  display: inline-grid;
+  top: 20px;
+  ;
+}
+ div.a{
   text-align: center;
 }
 
@@ -48,6 +52,7 @@ div.a{
   width: 50%;
   z-index: -200;
 }
+
 
 .Navbutton{
   background: white;
@@ -60,6 +65,27 @@ div.a{
   font-size: 30px;
 }
 
+.www{
+    float: left;
+    width: 300px;
+
+    padding: 10px;
+}
+.potato{
+float: right;
+    width: 300px;
+
+    padding: 10px;
+}
+.watchlist{
+
+    width: 300px;
+
+    padding: 10px;
+}
+
+
+
 legend {
   display: block;
   padding-left: 2px;
@@ -67,8 +93,22 @@ legend {
   border: none;
 }
 
+.card-container {
+  margin-top: 80px;
+}
 
-.buttons{
+
+
+.sticky {
+
+  top: 200px;
+  left: 320px;
+  z-index: 999;
+  text-align: center;
+}
+
+
+/* .buttons{
 
 align-items: center;
 align-content: center;
@@ -76,26 +116,49 @@ align-items: center;
 position: sticky;
 top:0;
 z-index:  1;
-}
-.buttons{
-
+} */
+/* .buttons{
+position: sticky;
 align-items: center;
 align-content: center;
-}
+} */
 
 .NavBar{
   background-color: white;
 
+
+
 }
-
-
 
 .animate-pop-in {
   animation: pop-in .6s cubic-bezier(0, .9, .3, 1.2) forwards;
   opacity: 0;
 }
 
+.header {
+  text-align: left;
+}
 
+.center {
+  margin: auto;
+  width: 60%;
+  padding: 10px;
+}
+.center1 {
+  margin: auto;
+  width: 60%;
+  border: 1px solid gray;
+  padding:5px;
+
+}
+
+
+
+
+
+.show{
+  padding: 10px;
+}
 
 
 @keyframes pop-in {

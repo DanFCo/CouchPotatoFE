@@ -1,63 +1,90 @@
-import React from 'react';
+import React from 'react'
 import ShowCard from "./components/ShowCard"
 import { connect } from "react-redux"
+import { Button, Responsive, Card, Icon } from 'semantic-ui-react'
 
 
-class Search extends React.Component {
+class Search extends React.Component{
 
-state={
-  term:""
-}
+  state={
+    term:""
+  }
+
+
 
 
 
   componentDidMount(){
-    fetch("http://localhost:3000/api/v1/shows")
-      .then(response => response.json())
-      .then(shows =>{
-        this.props.addShows(shows)
-      })
+    this.fetchShows()
   }
 
-changeHandler = (event) =>{
-  this.setState({
-    [event.target.name]: event.target.value
-  })
-}
 
-
-clickHandler = () =>{
-  fetch("http://localhost:3000/api/v1/shows/search",{
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Accepts": "application/json"
-    },
-    body: JSON.stringify({
-      search: this.state.term
+  fetchShows = ()=>{
+    fetch("http://localhost:3000/api/v1/shows")
+    .then(response => response.json())
+    .then(shows =>{
+      this.props.addShows(shows)
     })
-  }).then (response =>response.json())
-  .then(shows =>{
-    // console.log(shows)
-    this.props.addShows(shows)
-  })
-}
+  }
+
+
+  changeHandler = (event) =>{
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+
+  clickHandler = () =>{
+    fetch("http://localhost:3000/api/v1/shows/search",{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accepts": "application/json",
+      },
+      body: JSON.stringify({
+        search: this.state.term
+      })
+    }).then (response =>response.json())
+    .then(shows =>{
+      if (shows.length === 0){
+        alert("Sorry, No Shows By That Name, Try a Less Specific Search")
+      }else{
+
+        this.props.addShows(shows)
+
+      }
+
+    })
+  }
+
+
+
+
 
 
   render() {
 
     return (
       <div>
-      <div className="search-container">
-    <input onChange={this.changeHandler} type="text" name="term"/>
-    <button onClick={this.clickHandler}>SEARCH🔎</button>
-</div>
-<div className="grid-container">
+        <div className="sticky">
 
-{this.props.shows.map(show=>{
-  return <div className="grid-item" key={show.id}><ShowCard key={show.id} data={show} history={this.props.history} /></div>
-})}
-</div>
+          <Button onClick={this.fetchShows}><Icon name="archive"/>All Shows</Button>
+          <input onChange={this.changeHandler} name="term"/>
+          <Button onClick={this.clickHandler}>SEARCH</Button>
+
+        </div>
+
+        <div className="card-container">
+          <Card.Group itemsPerRow={3}>
+            {this.props.shows.map(show =>{
+
+              return  <Card raised key={show.id}>
+                <ShowCard key={show.id} data={show} history={this.props.history} />
+              </Card>
+            })}
+          </Card.Group>
+        </div>
 
       </div>
     );
@@ -66,7 +93,7 @@ clickHandler = () =>{
 }//-------------------end of class-----------------
 
 function mapStateToProps(state){
-console.log(state)
+
   return{shows: state.shows}
 }
 

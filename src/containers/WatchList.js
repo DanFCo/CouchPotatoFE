@@ -1,17 +1,25 @@
 import React from 'react';
 import ShowCard from "../components/ShowCard"
 import { connect } from "react-redux"
+import { Card, Responsive } from "semantic-ui-react"
 
 class WatchList extends React.Component {
 
   render() {
-    return (
-      <div>
- {this.props.bookmarks.map(bookmark =>{
-   return <ShowCard key={bookmark.id} data={bookmark} history={this.props.history} />
- })}
 
+    return (
+      <Responsive>
+        <h1>Watch List:</h1>
+      <div className="animate-pop-in">
+        <Card.Group centered itemsPerRow={5}>
+ {this.props.bookmarks.map(bookmark =>{
+   return <Card raised key={bookmark.id}>
+   <ShowCard key={bookmark.id} data={bookmark} history={this.props.history} />
+ </Card>
+ })}
+</Card.Group>
       </div>
+    </Responsive>
     );
   }
 

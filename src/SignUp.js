@@ -10,7 +10,7 @@ class SignUp extends React.Component {
     password: "",
     passwordConfirmation: ""
   }
-  
+
 
 
   setCurrentUser = (user) =>{
@@ -61,7 +61,7 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="animate-pop-in">
 
 
         <form onSubmit={this.submitHandler}>

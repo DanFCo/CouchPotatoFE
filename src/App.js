@@ -20,7 +20,17 @@ class App extends React.Component {
 
 
 
-
+componentDidMount(){
+  const token = localStorage.getItem("token")
+  fetch("http://localhost:3000/api/v1/auto",{
+    headers:{
+      "Authorization": token
+    }
+  }).then(response => response.json())
+  .then(user =>{
+    this.props.setUser(user)
+  })
+}
 
 
 
@@ -28,7 +38,9 @@ class App extends React.Component {
     localStorage.setItem("user_id",data.user.id)
     localStorage.setItem("user_name",data.user.username)
     localStorage.setItem("avatar",data.user.avatar)
+    localStorage.setItem("token",data.jwt)
     this.props.setUser(data)
+
   }
 
 

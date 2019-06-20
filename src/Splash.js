@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from "./couchpotato.png"
 import MainPic from "./couch_sofa.png"
 import SignUp from "./SignUp"
+import { Button } from "semantic-ui-react"
 
 class Splash extends Component {
 
@@ -32,7 +33,9 @@ formHandler = () =>{
       <br/>
       <input name="submit" type="submit" value="LOGIN"/>
       </form>
-      <button onClick={this.formHandler}>SIGN UP</button>
+
+    <button onClick={this.formHandler}>SIGN UP</button>
+
       <br/>
       {this.state.clicked ? <SignUp routerProps={this.props.routerProps} /> : null}
       <img src={MainPic} alt="" className="bg"/>

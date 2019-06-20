@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux"
-
+import { Responsive, Button, Icon } from "semantic-ui-react"
 
 
 
@@ -69,14 +69,15 @@ this.props.removeSelectBookmark(show)
 
 
     render(){
-  
+
       return (
-        <div>
+        <Responsive>
+        <div className="animate-pop-in">
           {this.state.clicked
             ?
             <div onClick={this.clickHandler}>
-              <h1>{this.props.data.name}</h1>
-              <img src={this.props.data.thumbnail} alt={this.props.data.name}/>
+              <h3>{this.props.data.name}</h3>
+              <img src={this.props.data.thumbnail} alt={this.props.data.name} height="275" width="200"/>
             </div>
             :
             <div>
@@ -89,21 +90,24 @@ this.props.removeSelectBookmark(show)
 
                 <div onClick={this.clickHandler}>
                   <h2>{this.props.data.name}</h2>
-                  <img src={this.props.data.poster} alt={this.props.data.name} width="400" height="500"/>
+{
+                // <img src={this.props.data.poster} alt={this.props.data.name} width="400" height="500"/>
+}
                   <h5>{this.props.data.summary}</h5>
                 </div>
 
 {!this.props.bookmarks.find(bk=>bk.name === this.props.data.name) ?
-  <button className="userButton" onClick={() => this.bookmarkButton(this.props.data)}>Favorite<span role="img">📺 </span></button>
+  <Button positive className="userButton" onClick={() => this.bookmarkButton(this.props.data)}> <Icon name="thumbs up"/>Add To Watch List</Button>
 :
-<button onClick={this.removeBookmark}>REMOVE FROM WATCHLIST</button>
+<Button negative onClick={this.removeBookmark}><Icon name="thumbs down"/>REMOVE FROM WATCHLIST</Button>
 }
-                <button className="userButton" onClick={() => this.pageButton(this.props.data)}>TV SHOW PAGE</button>
+                <Button color="blue" className="userButton" onClick={() => this.pageButton(this.props.data)}>TV SHOW PAGE</Button>
 
               </div>
             </div>
           }
         </div>
+        </Responsive>
       );
     }
 

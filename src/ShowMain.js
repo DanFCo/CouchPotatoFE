@@ -1,7 +1,7 @@
 import React from 'react';
-import Comment from "./components/Comment"
+import CommentCard from "./components/CommentCard"
 import { connect } from "react-redux"
-
+import { Button, Icon, Comment, Header, Item, Responsive } from "semantic-ui-react"
 
 class ShowMain extends React.Component {
 
@@ -55,190 +55,229 @@ class ShowMain extends React.Component {
 
     bookmarkButton = () =>{
 
-    fetch("http://localhost:3000/api/v1/bookmarks/new",{
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accepts": "application/json"
-      },
-      body: JSON.stringify({
-        show: this.props.show.id,
-        user: this.props.currentUser.id})
-      }).then (response =>response.json())
-      .then(bookmark=>{
-        this.props.addBookmark(bookmark)
-      })
-
-    }
-
-
-
-
-    potatoSubmit = (event) =>{
-      event.preventDefault()
-      fetch("http://localhost:3000/api/v1/potatoes/new",{
+      fetch("http://localhost:3000/api/v1/bookmarks/new",{
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Accepts": "application/json"
         },
         body: JSON.stringify({
-          username: this.state.receivingUser,
-          show: this.props.show,
-          note: this.state.note})
+          show: this.props.show.id,
+          user: this.props.currentUser.id})
         }).then (response =>response.json())
-        .then(data =>{
-          if(data.errors){
-            alert(data.errors)
-          }else{
-            alert("You've Passed The Hot Potato")
-          }
+        .then(bookmark=>{
+          this.props.addBookmark(bookmark)
         })
-      }
 
-      changeHandler=(event)=>{
-
-        this.setState({
-          [event.target.name]: event.target.value
-        })
-      }
-
-      clickHandler = () =>{
-        this.setState(prevState => ({
-          clicked: !prevState.clicked
-        }));
       }
 
 
-      removeBookmark = () =>{
-      let currentShow = this.props.bookmarks.find(bk=>bk.name === this.props.show.name)
-      this.props.removeSelectBookmark(currentShow)
 
-        fetch(`http://localhost:3000/api/v1/bookmarks/${this.props.id}`,{
-              method: "DELETE",
-              headers: {
-                "Content-Type": "application/json",
-                "Accepts": "application/json"
-              },
-              body: JSON.stringify({
-                user: this.props.currentUser.id,
-                show: currentShow.id
-              })
-            }).then (response =>response.json())
-            .then(data =>{
-          alert(data.message)
+
+      potatoSubmit = (event) =>{
+        event.preventDefault()
+        fetch("http://localhost:3000/api/v1/potatoes/new",{
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accepts": "application/json"
+          },
+          body: JSON.stringify({
+            username: this.state.receivingUser,
+            show: this.props.show,
+            note: this.state.note})
+          }).then (response =>response.json())
+          .then(data =>{
+            if(data.errors){
+              alert(data.errors)
+            }else{
+              alert("You've Passed The Hot Potato")
+            }
+          })
+        }
+
+        changeHandler=(event)=>{
+
+          this.setState({
+            [event.target.name]: event.target.value
+          })
+        }
+
+        clickHandler = () =>{
+          this.setState(prevState => ({
+            clicked: !prevState.clicked
+          }));
+        }
+
+
+        removeBookmark = () =>{
+          let currentShow = this.props.bookmarks.find(bk=>bk.name === this.props.show.name)
+          this.props.removeSelectBookmark(currentShow)
+
+          fetch(`http://localhost:3000/api/v1/bookmarks/${this.props.id}`,{
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              "Accepts": "application/json"
+            },
+            body: JSON.stringify({
+              user: this.props.currentUser.id,
+              show: currentShow.id
             })
+          }).then (response =>response.json())
+          .then(data =>{
+            alert(data.message)
+          })
 
-      }
+        }
 
 
 
 
 
 
-      render() {
-        return (
-          <div>
-            <h1>{this.props.show.name}</h1>
-            <br/>
-            <img src={this.props.show.poster} alt={this.props.show.name} height="550" width="450"/>
-            <br/>
-            <h3>Genre:</h3>{this.props.show.genre}
-              <br/>
-              <h3>Runtime:</h3> {this.props.show.runtime}
-                <br/>
-                <h3>Network:</h3> {this.props.show.network}
-                  <br/>
-                  <h3>Web Channel:</h3> {this.props.show.webchannel}
-                    <br/>
-                    <h3>Summary:</h3>{this.props.show.summary}
-                      <br/>
+        render() {
+          return (
+            <Responsive>
+            <div className="animate-pop-in">
+              <div className="show">
+                <Item.Group>
+                   <Item>
+                     <Item.Image size='medium' src={this.props.show.poster} />
 
-                      {this.props.show.website === "not available" ?
-                        null
-                        :
-                      <a href={this.props.show.website} target="blank"><button>WEBSITE</button></a>
+                     <Item.Content>
+                       <Header as='h1' dividing>
+                         {this.props.show.name}
+                       </Header>
+
+                       <Item.Meta>{this.props.show.genre}</Item.Meta>
+
+                       <Item.Description>
+                         {this.props.show.summary}
+                       </Item.Description>
+                       <Header as='h4' dividing>
+                        Network:
+                       </Header>
+                       <Item.Description>
+                         {this.props.show.network}
+                       </Item.Description>
+                       <Header as='h4' dividing>
+                        Web Channel:
+                       </Header>
+                       <Item.Description>
+                         {this.props.show.webchannel}
+                       </Item.Description>
+                       <Header as='h4' dividing>
+                      Runtime:
+                       </Header>
+                       <Item.Extra>{this.props.show.runtime}</Item.Extra>
+                     </Item.Content>
+                   </Item>
+                 </Item.Group>
+
+
+                      <div className="www">
+                        {this.props.show.website === "not available" ?
+                          null
+                          :
+                          <a href={this.props.show.website} target="blank">
+                            <Button color='blue' icon>
+                              <Icon name='world' /> Website
+                              </Button>
+                            </a>
+                          }
+
+
+</div>
+<div className="potato">
+                          {!this.props.potatoes.find(potato =>potato.show_id === this.props.show.id) ?
+                            <Button color='yellow' onClick={this.clickHandler}>Create Hot Potato</Button>
+                            :
+                            null
+                          }
+                          {this.state.clicked ?
+                            <form onSubmit={this.potatoSubmit}>
+                              <br/>
+                              <input onChange={this.changeHandler} name="receivingUser" type="text" placeholder="User Name of Person" required="required"/>
+                              <br/>
+                              <textarea onChange={this.changeHandler} name="note" form="usrform" placeholder="Write Them a Note!" required="required"/>
+                              <br/>
+                              <input type="submit"/>
+                              <br/>
+                            </form>
+                            :
+                            null}
+                            </div>
+
+                          <div className="watchlist">
+                            {!this.props.bookmarks.find(bk=>bk.name === this.props.show.name) ?
+
+                              <Button positive onClick={this.bookmarkButton}>ADD TO WATCH LIST</Button>
+
+                              :
+
+                              <Button negative onClick={this.removeBookmark}>REMOVE FROM WATCHLIST</Button>
+                            }
+                            </div>
+</div>
+
+
+
+
+                            <div className="center">
+                              <Header as='h3' dividing>
+                                Comments:
+                              </Header>
+                              <Comment.Group>
+
+                                {this.props.comments.map(comment =>{
+
+                                  return <CommentCard key={comment.id} data={comment} />
+                                })}
+                              </Comment.Group>
+                            </div>
+
+                            <form onSubmit={this.submitHandler}>
+                              <textarea onChange={this.changeHandler} rows="4" cols="50" name="comment" form="usrform" placeholder="Type Comment Here!"/>
+                              <br/>
+                              <input type="submit"/>
+                            </form>
+                          </div>
+                          </Responsive>
+                        );
                       }
-                      <br/>
+
+                    }//---------------------end of class-------------
+
+                    function mapStateToProps(state){
 
 
-
-{!this.props.potatoes.find(potato =>potato.show_id === this.props.show.id) ?
-  <button onClick={this.clickHandler}>Create Hot Potato</button>
-  :
-  null
-}
-{this.state.clicked ?
-  <form onSubmit={this.potatoSubmit}>
-    <br/>
-    <input onChange={this.changeHandler} name="receivingUser" type="text" placeholder="User Name of Person" required="required"/>
-    <br/>
-    <textarea onChange={this.changeHandler} name="note" form="usrform" placeholder="Write Them a Note!" required="required"/>
-    <br/>
-    <input type="submit"/>
-    <br/>
-  </form>
-  :
-  null}
-<br/>
-  {!this.props.bookmarks.find(bk=>bk.name === this.props.show.name) ?
-
-    <button onClick={this.bookmarkButton}>ADD TO WATCH LIST</button>
-
-  :
-
-  <button onClick={this.removeBookmark}>REMOVE FROM WATCHLIST</button>
-  }
-  <br/>
-
-                        <form onSubmit={this.submitHandler}>
-                          <textarea onChange={this.changeHandler} rows="4" cols="50" name="comment" form="usrform" placeholder="Type Comment Here!"/>
-                          <br/>
-                          <input type="submit"/>
-                        </form>
-
-
-
-                        {this.props.comments.map(comment =>{
-
-                          return  <Comment key={comment.id} data={comment} />
-                        })}
-
-                      </div>
-                    );
-                  }
-
-                }//---------------------end of class-------------
-
-                function mapStateToProps(state){
-
-
-                  return{show: state.selectShow, comments: state.comments,
-                    currentUser: state.current_user, potatoes: state.potatoes,
-                    bookmarks: state.bookmarks
-                  }
-                }
-
-                function mapDispatchToProps(dispatch){
-                  return{
-                    grabComment:(comment)=>{
-                      dispatch({type:"ADD_COMMENT", payload: comment})
-                    },
-                    addComments:(comments)=>{
-                      dispatch({type:"ADD_COMMENTS",payload:comments})
-                    },
-                    addBookmark: (bookmark)=>{
-                      dispatch({type:"ADD_BOOKMARK",payload: bookmark})
-                    },
-                    removeSelectBookmark: (show) =>{
-                      dispatch({type: "REMOVE_BOOKMARK", payload: show})
+                      return{show: state.selectShow, comments: state.comments,
+                        currentUser: state.current_user, potatoes: state.potatoes,
+                        bookmarks: state.bookmarks
+                      }
                     }
-                  }
-                }
+
+                    function mapDispatchToProps(dispatch){
+                      return{
+                        grabComment:(comment)=>{
+                          dispatch({type:"ADD_COMMENT", payload: comment})
+                        },
+                        addComments:(comments)=>{
+                          dispatch({type:"ADD_COMMENTS",payload:comments})
+                        },
+                        addBookmark: (bookmark)=>{
+                          dispatch({type:"ADD_BOOKMARK",payload: bookmark})
+                        },
+                        removeSelectBookmark: (show) =>{
+                          dispatch({type: "REMOVE_BOOKMARK", payload: show})
+                        }
+                      }
+                    }
 
 
 
 
 
 
-                export default connect(mapStateToProps,mapDispatchToProps)(ShowMain)
+                    export default connect(mapStateToProps,mapDispatchToProps)(ShowMain)

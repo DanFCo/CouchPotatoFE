@@ -2,6 +2,7 @@ import React from 'react';
 import SoloCouch from "./Header.png"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
+import { Button, Responsive } from "semantic-ui-react"
 
 
 class NavBar extends React.Component {
@@ -19,22 +20,26 @@ class NavBar extends React.Component {
 
 
   render() {
-  
+
     return (
-      <div className="buttons">
+      <Responsive>
+
         <div className="NavBar">
+          <div className="avatar-button">
           <Link to="/user">
-            <button className="NavButton">
-              <img src={localStorage.avatar} alt="" height="50" width="50"/> <h2>{localStorage.user_name}</h2></button>
+            <button>
+              <img src={localStorage.avatar} alt="" height="50" width="50"/></button>
             </Link>
             <Link to="/search">
-              <button className="NavButton">SEARCH</button>
+              <Button color="black" className="NavButton">Channel Surf</Button>
             </Link>
+            </div>
             <img src={SoloCouch} alt=""/>
-            <button className="NavButton" onClick={this.logOut}>LOGOUT</button>
+            <Button color="black" className="NavButton" onClick={this.logOut}>LOGOUT</Button>
 
           </div>
-        </div>
+
+        </Responsive>
       );
     }
 
