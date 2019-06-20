@@ -70,10 +70,11 @@ class SearchPage extends React.Component{
         <div className="sticky">
 
 
-          <br/>
           <input onChange={this.changeHandler} name="term"/>
+          <br/>
             <Button.Group>
             <Button onClick={this.clickHandler} color="red">Search</Button>
+            <Button.Or />
                 <Button onClick={this.fetchShows}>Archive</Button>
 
               </Button.Group>
