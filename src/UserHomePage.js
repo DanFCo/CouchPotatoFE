@@ -8,10 +8,27 @@ import { Card, Icon } from "semantic-ui-react"
 class UserHomePage extends React.Component {
 
   componentDidMount(){
+    this.refreshHandler()
     this.currentUserBookmark()
     this.getHottestPotato()
     this.getMostBookmarked()
   }
+
+
+refreshHandler = () =>{
+  const token = localStorage.getItem("token")
+  fetch("http://localhost:3000/api/v1/auto",{
+    headers:{
+      "Authorization": token
+    }
+  }).then(response => response.json())
+  .then(user =>{
+    debugger
+    this.props.setUser(user)
+  })
+}
+
+
 
   currentUserBookmark = () => {
     let user = this.props.current_user
@@ -55,7 +72,7 @@ getMostBookmarked = () =>{
 
 
   render() {
-
+console.log(this.props)
     return (
       <Fragment>
         <div className="animate-pop-in header">
@@ -63,7 +80,7 @@ getMostBookmarked = () =>{
           <Card
             raised
             image={localStorage.avatar}
-            header={localStorage.user_name}
+            header={this.props.current_user.username}
             meta={Date()}
             extra={this.extra()}
             />
@@ -102,6 +119,9 @@ function mapDispatchToProps(dispatch){
     },
     setHotPotato:(potato) =>{
       dispatch({type: "ADD_HOT_POTATO", payload: potato})
+    },
+    setUser:(user) =>{
+      dispatch({type: "SET_CURRENT_USER", payload: user})
     }
   }
 }

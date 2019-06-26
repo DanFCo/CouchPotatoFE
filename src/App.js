@@ -28,6 +28,7 @@ componentDidMount(){
     }
   }).then(response => response.json())
   .then(user =>{
+    debugger
     this.props.setUser(user)
   })
 }
@@ -35,9 +36,7 @@ componentDidMount(){
 
 
   setCurrentUser = (data) =>{
-    localStorage.setItem("user_id",data.user.id)
-    localStorage.setItem("user_name",data.user.username)
-    localStorage.setItem("avatar",data.user.avatar)
+    localStorage.setItem("avatar", data.user.avatar)
     localStorage.setItem("token",data.jwt)
     this.props.setUser(data)
 

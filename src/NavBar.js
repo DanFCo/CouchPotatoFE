@@ -9,10 +9,22 @@ class NavBar extends React.Component {
 
 
 
+
+
+
+  componentDidMount(){
+    const token = localStorage.getItem("token")
+    fetch("http://localhost:3000/api/v1/auto",{
+      headers:{
+        "Authorization": token
+      }
+    }).then(response => response.json())
+    .then(user =>{
+      this.props.setUser(user)
+    })
+  }
+
   logOut = () =>{
-    localStorage.removeItem("user_id")
-    localStorage.removeItem("user_name")
-    localStorage.removeItem("avatar")
     localStorage.removeItem("token")
     this.props.deleteUser()
     this.props.history.push('/')
@@ -46,14 +58,19 @@ class NavBar extends React.Component {
 
   }//--------------------end of class--------------------------------
 
-
+function mapStateToProps(state){
+  return{current_user: state.current_user}
+}
 
   function mapDispatchToProps(dispatch){
     return{
       deleteUser:()=>{
         dispatch({type:"DELETE_CURRENT_USER", payload: null})
+      },
+      setUser: (user) =>{
+        dispatch({type:"SET_CURRENT_USER", payload: user})
       }
     }
   }
 
-  export default connect(null, mapDispatchToProps)(NavBar)
+  export default connect(mapStateToProps, mapDispatchToProps)(NavBar)
