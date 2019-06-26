@@ -10,6 +10,7 @@ class UserHomePage extends React.Component {
   componentDidMount(){
     this.currentUserBookmark()
     this.getHottestPotato()
+    this.getMostBookmarked()
   }
 
   currentUserBookmark = () => {
@@ -36,11 +37,18 @@ class UserHomePage extends React.Component {
     })
   }
 
+getMostBookmarked = () =>{
+  fetch("http://localhost:3000/api/v1/most")
+  .then(response => response.json())
+  .then(console.log)
+}
+
+
 
   extra = () =>{
     const number = this.props.bookmarks.length
     return (<a>
-      <Icon name='user' />
+      <Icon name='bookmark' />
       {number} Shows In Watch List
     </a>)
   }

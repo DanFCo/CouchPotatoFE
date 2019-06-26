@@ -1,7 +1,7 @@
 import React from 'react'
 import ShowCard from "./components/ShowCard"
 import { connect } from "react-redux"
-import { Button, Responsive, Card, Icon, Search } from 'semantic-ui-react'
+import { Button, Responsive, Card } from 'semantic-ui-react'
 
 
 class SearchPage extends React.Component{
@@ -66,6 +66,7 @@ class SearchPage extends React.Component{
   render() {
 
     return (
+      <Responsive>
       <div>
         <div className="sticky">
 
@@ -92,6 +93,7 @@ class SearchPage extends React.Component{
         </div>
 
       </div>
+      </Responsive>
     );
   }
 

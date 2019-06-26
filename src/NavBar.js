@@ -13,6 +13,7 @@ class NavBar extends React.Component {
     localStorage.removeItem("user_id")
     localStorage.removeItem("user_name")
     localStorage.removeItem("avatar")
+    localStorage.removeItem("token")
     this.props.deleteUser()
     this.props.history.push('/')
   }

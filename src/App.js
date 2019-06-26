@@ -63,7 +63,7 @@ componentDidMount(){
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json'
+        'Accept': 'application/json'
       },
       body: JSON.stringify(this.state)
     }).then(response => response.json())
@@ -99,7 +99,7 @@ componentDidMount(){
 
       <div className="a">
         {
-        localStorage.user_id
+        localStorage.token
           ?
           <React.Fragment>
           <NavBar history={this.props.history} />

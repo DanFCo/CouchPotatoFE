@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from "./couchpotato.png"
 import MainPic from "./couch_sofa.png"
 import SignUp from "./SignUp"
-import { Button } from "semantic-ui-react"
+
 
 class Splash extends Component {
 
