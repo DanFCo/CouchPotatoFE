@@ -13,8 +13,9 @@ class WatchList extends React.Component {
       <div className="animate-pop-in">
         <Card.Group centered itemsPerRow={5}>
  {this.props.bookmarks.map(bookmark =>{
+
    return <Card raised key={bookmark.id}>
-   <ShowCard key={bookmark.id} data={bookmark} history={this.props.history} />
+   <ShowCard key={bookmark.id} data={bookmark.show} history={this.props.history} />
  </Card>
  })}
 </Card.Group>

@@ -28,18 +28,19 @@ componentDidMount(){
     }
   }).then(response => response.json())
   .then(user =>{
-    debugger
+
     this.props.setUser(user)
+    this.props.addBookmarks(user.bookmarks)
   })
 }
 
 
 
   setCurrentUser = (data) =>{
-    localStorage.setItem("avatar", data.user.avatar)
+localStorage.setItem("avatar",data.user.avatar)
     localStorage.setItem("token",data.jwt)
     this.props.setUser(data)
-
+    this.props.addBookmarks(data.user.bookmarks)
   }
 
 
@@ -137,6 +138,9 @@ function mapDispatchToProps(dispatch){
     },
     setPotatoes:(potatoes)=>{
       dispatch({type:"ADD_POTATOES", payload: potatoes})
+    },
+    addBookmarks:(bookmarks) =>{
+      dispatch({type:"ADD_BOOKMARKS", payload: bookmarks})
     }
 }
 }

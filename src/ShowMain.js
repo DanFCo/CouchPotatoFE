@@ -111,7 +111,7 @@ class ShowMain extends React.Component {
 
 
         removeBookmark = () =>{
-          let currentShow = this.props.bookmarks.find(bk=>bk.name === this.props.show.name)
+          let currentShow = this.props.bookmarks.find(bk=>bk.show.name === this.props.show.name)
           this.props.removeSelectBookmark(currentShow)
 
           fetch(`http://localhost:3000/api/v1/bookmarks/${this.props.id}`,{
@@ -137,6 +137,7 @@ class ShowMain extends React.Component {
 
 
         render() {
+          console.log(this.props)
           return (
             <Responsive>
               <div className="animate-pop-in">
@@ -196,13 +197,13 @@ class ShowMain extends React.Component {
 
 
                           <div className="watchlist">
-                            {!this.props.bookmarks.find(bk=>bk.name === this.props.show.name) ?
+                            {this.props.bookmarks.find(bk=>bk.show.name === this.props.show.name) ?
 
-                              <Button positive onClick={this.bookmarkButton}>ADD TO WATCH LIST</Button>
-
-                              :
 
                               <Button negative onClick={this.removeBookmark}>REMOVE FROM WATCHLIST</Button>
+                              :
+                              <Button positive onClick={this.bookmarkButton}>ADD TO WATCH LIST</Button>
+
                             }
                           </div>
 

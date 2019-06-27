@@ -26,7 +26,7 @@ this.props.history.push(`/show/${show.id}`)
 
 
 removeBookmark = () =>{
-let show = this.props.bookmarks.find(bk=>bk.name === this.props.data.name)
+let show = this.props.bookmarks.find(bk=>bk.show.name === this.props.data.name)
 this.props.removeSelectBookmark(show)
 
   fetch(`http://localhost:3000/api/v1/bookmarks/${this.props.id}`,{
@@ -96,10 +96,10 @@ this.props.removeSelectBookmark(show)
                   <h5>{this.props.data.summary}</h5>
                 </div>
 
-{!this.props.bookmarks.find(bk=>bk.name === this.props.data.name) ?
-  <Button positive className="userButton" onClick={() => this.bookmarkButton(this.props.data)}> <Icon name="thumbs up"/>Add To Watch List</Button>
+{this.props.bookmarks.find(bk=>bk.show.name === this.props.data.name) ?
+  <Button negative onClick={this.removeBookmark}><Icon name="thumbs down"/>REMOVE FROM WATCHLIST</Button>
 :
-<Button negative onClick={this.removeBookmark}><Icon name="thumbs down"/>REMOVE FROM WATCHLIST</Button>
+<Button positive className="userButton" onClick={() => this.bookmarkButton(this.props.data)}> <Icon name="thumbs up"/>Add To Watch List</Button>
 }
                 <Button color="blue" className="userButton" onClick={() => this.pageButton(this.props.data)}>TV SHOW PAGE</Button>
 

@@ -8,43 +8,43 @@ import { Card, Icon } from "semantic-ui-react"
 class UserHomePage extends React.Component {
 
   componentDidMount(){
-    this.refreshHandler()
-    this.currentUserBookmark()
+    // this.refreshHandler()
+    // this.currentUserBookmark()
     this.getHottestPotato()
     this.getMostBookmarked()
   }
 
 
-refreshHandler = () =>{
-  const token = localStorage.getItem("token")
-  fetch("http://localhost:3000/api/v1/auto",{
-    headers:{
-      "Authorization": token
-    }
-  }).then(response => response.json())
-  .then(user =>{
-    debugger
-    this.props.setUser(user)
-  })
-}
+// refreshHandler = () =>{
+//   const token = localStorage.getItem("token")
+//   fetch("http://localhost:3000/api/v1/auto",{
+//     headers:{
+//       "Authorization": token
+//     }
+//   }).then(response => response.json())
+//   .then(user =>{
+//     debugger
+//     this.props.setUser(user)
+//   })
+// }
 
 
 
-  currentUserBookmark = () => {
-    let user = this.props.current_user
-
-    fetch("http://localhost:3000/api/v1/bookmarks/get",{
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accepts": "application/json"
-      },
-      body: JSON.stringify(user)
-    }).then (response =>response.json())
-    .then(bookmarks =>{
-      this.props.addBookmarks(bookmarks)
-    })
-  }
+  // currentUserBookmark = () => {
+  //   let user = this.props.current_user
+  //
+  //   fetch("http://localhost:3000/api/v1/bookmarks/get",{
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Accepts": "application/json"
+  //     },
+  //     body: JSON.stringify(user)
+  //   }).then (response =>response.json())
+  //   .then(bookmarks =>{
+  //     this.props.addBookmarks(bookmarks)
+  //   })
+  // }
 
   getHottestPotato = () =>{
     fetch("http://localhost:3000/api/v1/potatos")
@@ -72,14 +72,15 @@ getMostBookmarked = () =>{
 
 
   render() {
-console.log(this.props)
+if (this.props.current_user){
     return (
       <Fragment>
+
         <div className="animate-pop-in header">
 <Card.Group centered itemsPerRow={4}>
           <Card
             raised
-            image={localStorage.avatar}
+            image={this.props.current_user.avatar}
             header={this.props.current_user.username}
             meta={Date()}
             extra={this.extra()}
@@ -99,13 +100,20 @@ console.log(this.props)
           <HotPotatoes history={this.props.history} />
           <WatchList history={this.props.history} />
         </div>
+
       </Fragment>
+
+
     );
+  }else{
+    return(<div></div>)
+  }
   }
 
 }//------------------end of class---------------------------------
 
 function mapStateToProps(state){
+
   return{current_user: state.current_user,
     hottestPotato: state.hottestPotato,
     bookmarks: state.bookmarks

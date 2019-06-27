@@ -18,7 +18,7 @@ function reducer(state=defaultState, action){
     case "SET_CURRENT_USER":
     return{...state, current_user: action.payload}
       case "DELETE_CURRENT_USER":
-      return{...state, current_user: action.payload}
+      return{...state, current_user: action.payload, bookmarks:[], potatoes:[]}
       case "ADD_SHOWS":
       return{...state, shows: action.payload}
       case "ADD_BOOKMARK":
@@ -53,7 +53,7 @@ return newArr
 
 const filterBookmark = (bkShow,state) =>{
   let shows = [...state]
-  let newArr = shows.filter(show =>{ return show.id !== bkShow.id})
+  let newArr = shows.filter(show =>{return show.id !== bkShow.id})
   return newArr
 }
 

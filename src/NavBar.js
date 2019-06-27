@@ -25,6 +25,7 @@ class NavBar extends React.Component {
   }
 
   logOut = () =>{
+
     localStorage.removeItem("token")
     this.props.deleteUser()
     this.props.history.push('/')
