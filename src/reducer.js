@@ -8,7 +8,8 @@ const defaultState={
   current_user: null,
   comments:[],
   selectShow:{},
-  hottestPotato: {}
+  hottestPotato: {},
+  mostWatched: {}
 }
 
 
@@ -39,6 +40,8 @@ function reducer(state=defaultState, action){
       return{...state,bookmarks: filterBookmark(action.payload, state.bookmarks)}
       case "ADD_HOT_POTATO":
       return{...state,hottestPotato:action.payload}
+      case "ADD_MOST_WATCHED":
+      return{...state, mostWatched:action.payload}
     default:
 return state
   }

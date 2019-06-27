@@ -3,48 +3,22 @@ import HotPotatoes from "./containers/HotPotatoes"
 import WatchList from "./containers/WatchList"
 import { connect } from "react-redux"
 import PotatoCard from "./components/PotatoCard"
+import ShowCard from "./components/ShowCard"
 import { Card, Icon } from "semantic-ui-react"
+
 
 class UserHomePage extends React.Component {
 
   componentDidMount(){
-    // this.refreshHandler()
-    // this.currentUserBookmark()
     this.getHottestPotato()
     this.getMostBookmarked()
   }
 
 
-// refreshHandler = () =>{
-//   const token = localStorage.getItem("token")
-//   fetch("http://localhost:3000/api/v1/auto",{
-//     headers:{
-//       "Authorization": token
-//     }
-//   }).then(response => response.json())
-//   .then(user =>{
-//     debugger
-//     this.props.setUser(user)
-//   })
-// }
 
 
 
-  // currentUserBookmark = () => {
-  //   let user = this.props.current_user
-  //
-  //   fetch("http://localhost:3000/api/v1/bookmarks/get",{
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Accepts": "application/json"
-  //     },
-  //     body: JSON.stringify(user)
-  //   }).then (response =>response.json())
-  //   .then(bookmarks =>{
-  //     this.props.addBookmarks(bookmarks)
-  //   })
-  // }
+
 
   getHottestPotato = () =>{
     fetch("http://localhost:3000/api/v1/potatos")
@@ -57,7 +31,10 @@ class UserHomePage extends React.Component {
 getMostBookmarked = () =>{
   fetch("http://localhost:3000/api/v1/most")
   .then(response => response.json())
-  .then(console.log)
+  .then(show =>{
+    this.props.setMostWatched(show)
+
+  })
 }
 
 
@@ -72,6 +49,7 @@ getMostBookmarked = () =>{
 
 
   render() {
+    console.log(this.props)
 if (this.props.current_user){
     return (
       <Fragment>
@@ -94,6 +72,20 @@ if (this.props.current_user){
             "NO CURRENT POTATOES"
           }
         </Fragment>
+
+        <Card centered className="most">
+
+          <div>
+            <h3>MOST ADDED TO WATCH LIST:</h3>
+          </div>
+          {this.props.mostWatched ?
+
+<ShowCard key={this.props.mostWatched.name} data={this.props.mostWatched} history={this.props.history} />
+:
+"NO CURRENT POPULAR SHOW"
+}
+
+</Card>
           </Card.Group>
         </div>
         <div>
@@ -106,7 +98,8 @@ if (this.props.current_user){
 
     );
   }else{
-    return(<div></div>)
+    return(<div>
+    NOPE</div>)
   }
   }
 
@@ -116,7 +109,8 @@ function mapStateToProps(state){
 
   return{current_user: state.current_user,
     hottestPotato: state.hottestPotato,
-    bookmarks: state.bookmarks
+    bookmarks: state.bookmarks,
+    mostWatched: state.mostWatched
   }
 }
 
@@ -130,6 +124,9 @@ function mapDispatchToProps(dispatch){
     },
     setUser:(user) =>{
       dispatch({type: "SET_CURRENT_USER", payload: user})
+    },
+    setMostWatched:(show) =>{
+      dispatch({type: "ADD_MOST_WATCHED", payload: show})
     }
   }
 }

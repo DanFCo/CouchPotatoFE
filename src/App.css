@@ -39,6 +39,15 @@
   width: 50%;
 }
 
+.most{
+  text-align: center;
+display: block;
+margin-left: auto;
+margin-right: auto;
+width: 50%
+}
+
+
 .hot-potato{
   text-align: center;
 }
