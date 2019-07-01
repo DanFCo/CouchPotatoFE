@@ -11,7 +11,7 @@ class Splash extends Component {
   state={
     clicked: false
   }
-
+  
 
   formHandler = () =>{
     this.setState(prevState => ({

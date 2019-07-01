@@ -12,7 +12,7 @@ class SearchPage extends React.Component{
 
 
 
-
+  
 
   componentDidMount(){
     this.fetchShows()
