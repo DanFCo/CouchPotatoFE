@@ -1,7 +1,7 @@
 import React from 'react'
 import ShowCard from "./components/ShowCard"
 import { connect } from "react-redux"
-import { Button, Responsive, Card } from 'semantic-ui-react'
+import { Button, Responsive, Card, Icon } from 'semantic-ui-react'
 
 
 class SearchPage extends React.Component{
@@ -67,32 +67,32 @@ class SearchPage extends React.Component{
 
     return (
       <Responsive>
-      <div>
-        <div className="sticky">
+        <div>
+          <div className="sticky">
 
 
-          <input onChange={this.changeHandler} name="term"/>
-          <br/>
+            <input onChange={this.changeHandler} name="term" />
+            <br/>
             <Button.Group>
-            <Button onClick={this.clickHandler} color="red">Search</Button>
-            <Button.Or />
-                <Button onClick={this.fetchShows}>Archive</Button>
+              <Button onClick={this.clickHandler} color="red"><Icon name="search"/>Search</Button>
+              <Button.Or />
+              <Button onClick={this.fetchShows}><Icon name="server"/>Archive</Button>
 
-              </Button.Group>
+            </Button.Group>
+          </div>
+
+          <div className="card-container">
+            <Card.Group itemsPerRow={3}>
+              {this.props.shows.map(show =>{
+
+                return  <Card raised key={show.id}>
+                  <ShowCard key={show.id} data={show} history={this.props.history} />
+                </Card>
+              })}
+            </Card.Group>
+          </div>
+
         </div>
-
-        <div className="card-container">
-          <Card.Group itemsPerRow={3}>
-            {this.props.shows.map(show =>{
-
-              return  <Card raised key={show.id}>
-                <ShowCard key={show.id} data={show} history={this.props.history} />
-              </Card>
-            })}
-          </Card.Group>
-        </div>
-
-      </div>
       </Responsive>
     );
   }

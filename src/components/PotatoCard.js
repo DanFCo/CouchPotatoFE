@@ -79,57 +79,57 @@ class PotatoCard extends React.Component {
 
     return (
       <Responsive>
-      <div className="animate-pop-in hot-potato">
-        <Card.Group centered>
-<Card raised className="please-work">
-        <img onClick={()=>this.clickHandler(this.props.show)} src={Potato} height="200" width="150"  alt="" className="center-image"/>
+        <div className="animate-pop-in hot-potato">
+          <Card.Group centered>
+            <Card raised className="please-work">
+              <img onClick={()=>this.clickHandler(this.props.show)} src={Potato} height="200" width="150"  alt="" className="center-image"/>
 
-        {this.props.hottest ?
+              {this.props.hottest ?
 
-          <h3>Hottest Potato</h3>
-        :
-          <div>
-            <h5>{this.props.note}</h5>
-            <button onClick={this.deletePotato}>Remove</button>
-            <button onClick={this.potatoClick}>Hot Potato</button>
-            {this.state.clicked ?
-                <form onSubmit={this.hotPotato}>
-                  <br/>
-                  <input onChange={this.changeHandler} name="receivingUser" type="text" placeholder="User Name of Person" required="required"/>
-                  <br/>
-                  <textarea onChange={this.changeHandler} name="note" form="usrform" placeholder="Write Them a Note!" required="required"/>
-                  <br/>
-                  <input type="submit"/>
-                  <br/>
-                </form>
-            :
-              null
-            }
-          </div>
-          }
-        </Card>
-        </Card.Group>
+                <h3>Hottest Potato</h3>
+                :
+                <div>
+                  <h5>{this.props.note}</h5>
+                  <button onClick={this.deletePotato}>Remove</button>
+                  <button onClick={this.potatoClick}>Hot Potato</button>
+                  {this.state.clicked ?
+                    <form onSubmit={this.hotPotato}>
+                      <br/>
+                      <input onChange={this.changeHandler} name="receivingUser" type="text" placeholder="User Name of Person" required="required"/>
+                      <br/>
+                      <textarea onChange={this.changeHandler} name="note" form="usrform" placeholder="Write Them a Note!" required="required"/>
+                      <br/>
+                      <input type="submit"/>
+                      <br/>
+                    </form>
+                    :
+                    null
+                  }
+                </div>
+              }
+            </Card>
+          </Card.Group>
         </div>
       </Responsive>
-      );
-    }
-
-  }//-------------END OF CLASS------------------------
-
-  export default connect(mapStateToProps,mapDispatchToProps)(PotatoCard)
-
-  function mapStateToProps(state, props){
-
-    return{hottestPotato: state.hottestPotato}
+    );
   }
 
-  function mapDispatchToProps(dispatch){
-    return{
-      setSelectShow:(show)=>{
-        dispatch({type: "ADD_SELECT_SHOW", payload: show})
-      },
-      removePotato:(potato)=>{
-        dispatch({type:"REMOVE_POTATO", payload: potato})
-      }
+}//-------------END OF CLASS------------------------
+
+export default connect(mapStateToProps,mapDispatchToProps)(PotatoCard)
+
+function mapStateToProps(state, props){
+
+  return{hottestPotato: state.hottestPotato}
+}
+
+function mapDispatchToProps(dispatch){
+  return{
+    setSelectShow:(show)=>{
+      dispatch({type: "ADD_SELECT_SHOW", payload: show})
+    },
+    removePotato:(potato)=>{
+      dispatch({type:"REMOVE_POTATO", payload: potato})
     }
   }
+}

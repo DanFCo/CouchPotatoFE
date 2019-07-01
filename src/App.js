@@ -15,29 +15,29 @@ class App extends React.Component {
   state={
     username: "",
     password:""
-
+    
   }
 
 
 
-componentDidMount(){
-  const token = localStorage.getItem("token")
-  fetch("http://localhost:3000/api/v1/auto",{
-    headers:{
-      "Authorization": token
-    }
-  }).then(response => response.json())
-  .then(user =>{
+  componentDidMount(){
+    const token = localStorage.getItem("token")
+    fetch("http://localhost:3000/api/v1/auto",{
+      headers:{
+        "Authorization": token
+      }
+    }).then(response => response.json())
+    .then(user =>{
 
-    this.props.setUser(user)
-    this.props.addBookmarks(user.bookmarks)
-  })
-}
+      this.props.setUser(user)
+      this.props.addBookmarks(user.bookmarks)
+    })
+  }
 
 
 
   setCurrentUser = (data) =>{
-localStorage.setItem("avatar",data.user.avatar)
+    localStorage.setItem("avatar",data.user.avatar)
     localStorage.setItem("token",data.jwt)
     this.props.setUser(data)
     this.props.addBookmarks(data.user.bookmarks)
@@ -99,31 +99,31 @@ localStorage.setItem("avatar",data.user.avatar)
 
       <div className="a">
         {
-        localStorage.token
+          localStorage.token
           ?
           <React.Fragment>
-          <NavBar history={this.props.history} />
-          <Switch>
-            <Route exact path="/show/:id" component={ShowMain} />
-            <Route exact path="/search" render={(routerProps) => <SearchPage {...routerProps} />}/>
-          <Route exact path="/user" component={(routerProps) => <UserHomePage {...routerProps} />}/>
-          <Route exact path="/" component={Splash} />
-         </Switch>
-         </React.Fragment>
+            <NavBar history={this.props.history} />
+            <Switch>
+              <Route exact path="/show/:id" component={ShowMain} />
+              <Route exact path="/search" render={(routerProps) => <SearchPage {...routerProps} />}/>
+              <Route exact path="/user" component={(routerProps) => <UserHomePage {...routerProps} />}/>
+              <Route exact path="/" component={Splash} />
+            </Switch>
+          </React.Fragment>
           :
           <Splash submitHandler={this.submitHandler}
-          changeHandler={this.changeHandler}
-          routerProps={this.props} />
-      }
+            changeHandler={this.changeHandler}
+            routerProps={this.props} />
+        }
 
 
 
 
 
 
-  </div>
-)
-}
+      </div>
+    )
+  }
 }//--------------------------------------------------end of class
 
 function mapStateToProps(state){
@@ -142,7 +142,7 @@ function mapDispatchToProps(dispatch){
     addBookmarks:(bookmarks) =>{
       dispatch({type:"ADD_BOOKMARKS", payload: bookmarks})
     }
-}
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

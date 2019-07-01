@@ -33,6 +33,7 @@ class ShowMain extends React.Component {
 
   submitHandler=(event)=>{
     event.preventDefault()
+
     fetch("http://localhost:3000/api/v1/comments/new",{
       method: "POST",
       headers: {
@@ -46,7 +47,6 @@ class ShowMain extends React.Component {
       }).then (response =>response.json())
       .then(comment =>{
         this.props.grabComment(comment)
-
       })
 
     }
@@ -111,6 +111,7 @@ class ShowMain extends React.Component {
 
 
         removeBookmark = () =>{
+
           let currentShow = this.props.bookmarks.find(bk=>bk.show.name === this.props.show.name)
           this.props.removeSelectBookmark(currentShow)
 
@@ -200,9 +201,9 @@ class ShowMain extends React.Component {
                             {this.props.bookmarks.find(bk=>bk.show.name === this.props.show.name) ?
 
 
-                              <Button negative onClick={this.removeBookmark}>REMOVE FROM WATCHLIST</Button>
+                              <Button negative onClick={this.removeBookmark}><Icon name="remove"/>REMOVE FROM WATCHLIST</Button>
                               :
-                              <Button positive onClick={this.bookmarkButton}>ADD TO WATCH LIST</Button>
+                              <Button positive onClick={this.bookmarkButton}><Icon name="add"/>ADD TO WATCH LIST</Button>
 
                             }
                           </div>
@@ -210,7 +211,7 @@ class ShowMain extends React.Component {
 
                           <div className="potato">
                             {!this.props.potatoes.find(potato =>potato.show_id === this.props.show.id) ?
-                              <Button color='yellow' onClick={this.clickHandler}>Create Hot Potato</Button>
+                              <Button color='yellow' onClick={this.clickHandler}><Icon name="share"/>Create Hot Potato</Button>
                               :
                               null
                             }
@@ -230,10 +231,10 @@ class ShowMain extends React.Component {
 
 
 
-                      </Fragment>
-                    </Grid.Column>
-                  </Grid>
-                </div>
+                          </Fragment>
+                        </Grid.Column>
+                      </Grid>
+                    </div>
 
 
 
@@ -257,8 +258,8 @@ class ShowMain extends React.Component {
                       </Comment.Group>
                     </div>
 
-                    <form onSubmit={this.submitHandler}>
-                      <textarea onChange={this.changeHandler} rows="4" cols="50" name="comment" form="usrform" placeholder="Type Comment Here!"/>
+                    <form className="comment" onSubmit={this.submitHandler}>
+                      <textarea onfocus="this.value=''" onChange={this.changeHandler} rows="4" cols="50" name="comment" form="usrform" placeholder="Type Comment Here!"/>
                       <br/>
                       <input type="submit"/>
                     </form>

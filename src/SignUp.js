@@ -14,7 +14,7 @@ class SignUp extends React.Component {
 
 
   setCurrentUser = (user) =>{
-    
+
     localStorage.setItem("avatar",user.user.avatar)
     localStorage.setItem("token",user.jwt)
     this.props.setUser(user)

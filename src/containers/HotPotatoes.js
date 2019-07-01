@@ -10,20 +10,20 @@ class HotPotatoes extends React.Component {
       <Responsive>
         <Fragment>
           {this.props.potatoes.length !== 0 ?
-      <div>
-        <h1>You've Been Passed Hot Potatoes:</h1>
-        <Card.Group itemsPerRow={5} centered>
-{this.props.potatoes.map(potato =>{
-return  <Card raised>
-  <PotatoCard key={potato.id} history={this.props.history} {...potato} hottest={false}/>
-</Card>
-})}
-</Card.Group>
-      </div>
-      :
-      null
-    }
-      </Fragment>
+            <div>
+              <h1>You've Been Passed Hot Potatoes:</h1>
+              <Card.Group itemsPerRow={5} centered>
+                {this.props.potatoes.map(potato =>{
+                  return  <Card raised>
+                    <PotatoCard key={potato.id} history={this.props.history} {...potato} hottest={false}/>
+                  </Card>
+                })}
+              </Card.Group>
+            </div>
+            :
+            null
+          }
+        </Fragment>
       </Responsive>
     );
   }
@@ -32,7 +32,7 @@ return  <Card raised>
 
 function mapStateToProps(state){
 
-return{potatoes: state.potatoes}
+  return{potatoes: state.potatoes}
 }
 
 

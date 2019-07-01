@@ -15,7 +15,7 @@ class UserHomePage extends React.Component {
   }
 
 
-
+  
 
 
 
@@ -28,14 +28,14 @@ class UserHomePage extends React.Component {
     })
   }
 
-getMostBookmarked = () =>{
-  fetch("http://localhost:3000/api/v1/most")
-  .then(response => response.json())
-  .then(show =>{
-    this.props.setMostWatched(show)
+  getMostBookmarked = () =>{
+    fetch("http://localhost:3000/api/v1/most")
+    .then(response => response.json())
+    .then(show =>{
+      this.props.setMostWatched(show)
 
-  })
-}
+    })
+  }
 
 
 
@@ -49,90 +49,90 @@ getMostBookmarked = () =>{
 
 
   render() {
-    console.log(this.props)
-if (this.props.current_user){
-    return (
-      <Fragment>
 
-        <div className="animate-pop-in header">
-<Card.Group centered itemsPerRow={4}>
-          <Card
-            raised
-            image={this.props.current_user.avatar}
-            header={this.props.current_user.username}
-            meta={Date()}
-            extra={this.extra()}
-            />
+    if (this.props.current_user){
+      return (
         <Fragment>
-          {this.props.hottestPotato ?
-            <Card className="eat">
-              <PotatoCard history={this.props.history} {...this.props.hottestPotato} hottest={true}/>
-            </Card>
-            :
-            "NO CURRENT POTATOES"
-          }
+
+          <div className="animate-pop-in header">
+            <Card.Group centered itemsPerRow={4}>
+              <Card
+                raised
+                image={this.props.current_user.avatar}
+                header={this.props.current_user.username}
+                meta={Date()}
+                extra={this.extra()}
+                />
+              <Fragment>
+                {this.props.hottestPotato ?
+                  <Card className="eat">
+                    <PotatoCard history={this.props.history} {...this.props.hottestPotato} hottest={true}/>
+                  </Card>
+                  :
+                  "NO CURRENT POTATOES"
+                }
+              </Fragment>
+
+              <Card centered className="most">
+
+                <div>
+                  <h3><Icon name="star"/>MOST ADDED TO WATCH LIST<Icon name="star"/></h3>
+                </div>
+                {this.props.mostWatched ?
+
+                  <ShowCard key={this.props.mostWatched.name} data={this.props.mostWatched} history={this.props.history} />
+                  :
+                  "NO CURRENT POPULAR SHOW"
+                }
+
+              </Card>
+            </Card.Group>
+          </div>
+          <div>
+            <HotPotatoes history={this.props.history} />
+            <WatchList history={this.props.history} />
+          </div>
+
         </Fragment>
 
-        <Card centered className="most">
 
-          <div>
-            <h3>MOST ADDED TO WATCH LIST:</h3>
-          </div>
-          {this.props.mostWatched ?
+      );
+    }else{
+      return(<div>
+        <Icon name="user secret"/> Refresh Page</div>)
+        }
+      }
 
-<ShowCard key={this.props.mostWatched.name} data={this.props.mostWatched} history={this.props.history} />
-:
-"NO CURRENT POPULAR SHOW"
-}
+    }//------------------end of class---------------------------------
 
-</Card>
-          </Card.Group>
-        </div>
-        <div>
-          <HotPotatoes history={this.props.history} />
-          <WatchList history={this.props.history} />
-        </div>
+    function mapStateToProps(state){
 
-      </Fragment>
-
-
-    );
-  }else{
-    return(<div>
-    NOPE</div>)
-  }
-  }
-
-}//------------------end of class---------------------------------
-
-function mapStateToProps(state){
-
-  return{current_user: state.current_user,
-    hottestPotato: state.hottestPotato,
-    bookmarks: state.bookmarks,
-    mostWatched: state.mostWatched
-  }
-}
-
-function mapDispatchToProps(dispatch){
-  return{
-    addBookmarks:(bookmarks) =>{
-      dispatch({type:"ADD_BOOKMARKS", payload: bookmarks})
-    },
-    setHotPotato:(potato) =>{
-      dispatch({type: "ADD_HOT_POTATO", payload: potato})
-    },
-    setUser:(user) =>{
-      dispatch({type: "SET_CURRENT_USER", payload: user})
-    },
-    setMostWatched:(show) =>{
-      dispatch({type: "ADD_MOST_WATCHED", payload: show})
+      return{current_user: state.current_user,
+        hottestPotato: state.hottestPotato,
+        bookmarks: state.bookmarks,
+        mostWatched: state.mostWatched
+      }
     }
-  }
-}
+
+    function mapDispatchToProps(dispatch){
+      return{
+        addBookmarks:(bookmarks) =>{
+          dispatch({type:"ADD_BOOKMARKS", payload: bookmarks})
+        },
+        setHotPotato:(potato) =>{
+          dispatch({type: "ADD_HOT_POTATO", payload: potato})
+        },
+        setUser:(user) =>{
+          dispatch({type: "SET_CURRENT_USER", payload: user})
+        },
+        setMostWatched:(show) =>{
+          dispatch({type: "ADD_MOST_WATCHED", payload: show})
+        }
+      }
+    }
 
 
 
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(UserHomePage)
+    export default connect(mapStateToProps,mapDispatchToProps)(UserHomePage)

@@ -2,7 +2,7 @@ import React from 'react';
 import SoloCouch from "./Header.png"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
-import { Button, Responsive } from "semantic-ui-react"
+import { Button, Responsive, Icon } from "semantic-ui-react"
 
 
 class NavBar extends React.Component {
@@ -40,16 +40,16 @@ class NavBar extends React.Component {
 
         <div className="NavBar">
           <div className="avatar-button">
-          <Link to="/user">
-            <button>
-              <img src={localStorage.avatar} alt="" height="50" width="50"/></button>
-            </Link>
-            <Link to="/search">
-              <Button color="black" className="NavButton">Channel Surf</Button>
-            </Link>
+            <Link to="/user">
+              <button>
+                <img src={localStorage.avatar} alt="" height="50" width="50"/></button>
+              </Link>
+              <Link to="/search">
+                <Button color="black" className="NavButton"><Icon name="tv"/>Channel Surf</Button>
+              </Link>
             </div>
             <img src={SoloCouch} alt=""/>
-            <Button color="black" className="NavButton" onClick={this.logOut}>LOGOUT</Button>
+            <Button color="black" className="NavButton" onClick={this.logOut}><Icon name="sign-out"/>LOGOUT</Button>
 
           </div>
 
@@ -59,9 +59,9 @@ class NavBar extends React.Component {
 
   }//--------------------end of class--------------------------------
 
-function mapStateToProps(state){
-  return{current_user: state.current_user}
-}
+  function mapStateToProps(state){
+    return{current_user: state.current_user}
+  }
 
   function mapDispatchToProps(dispatch){
     return{

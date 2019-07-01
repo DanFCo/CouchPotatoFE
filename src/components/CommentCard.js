@@ -13,17 +13,17 @@ class CommentCard extends React.Component {
           <Comment.Content>
             <Comment.Author as="a">{this.props.data.user.username}</Comment.Author>
             <Comment.Metadata>
-              <div>{this.props.data.date_time}</div>
               <div>
-                <Icon name='star' />
+                <Icon name='chat' />
               </div>
+              <div>{this.props.data.date_time}</div>
             </Comment.Metadata>
             <Comment.Text>
               {this.props.data.comment}
             </Comment.Text>
           </Comment.Content>
         </Comment>
-        </div>
+      </div>
     );
   }
 
