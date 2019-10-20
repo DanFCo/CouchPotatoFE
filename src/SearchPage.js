@@ -12,7 +12,7 @@ class SearchPage extends React.Component{
 
 
 
-  
+
 
   componentDidMount(){
     this.fetchShows()
@@ -64,7 +64,7 @@ class SearchPage extends React.Component{
 
 
   render() {
-
+console.log(this.props)
     return (
       <Responsive>
         <div>
